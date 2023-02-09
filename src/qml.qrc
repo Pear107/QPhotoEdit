@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+        <file>view/main.qml</file>
+        <file>view/WBlur.qml</file>
+        <file>view/WGaussBlur.qml</file>
+        <file>view/WTransfer.qml</file>
+        <file>view/WBinarize.qml</file>
+        <file>view/channel/GrayChannel.qml</file>
+        <file>view/channel/RgbChannel.qml</file>
+        <file>assets/icon/about.png</file>
+        <file>assets/icon/checkMark.png</file>
+        <file>assets/icon/clipboard.png</file>
+        <file>assets/icon/close.png</file>
+        <file>assets/icon/empty.png</file>
+        <file>assets/icon/flipHorizontally.png</file>
+        <file>assets/icon/flipVertically.png</file>
+        <file>assets/icon/help.png</file>
+        <file>assets/icon/language.png</file>
+        <file>assets/icon/logo.ico</file>
+        <file>assets/icon/open.png</file>
+        <file>assets/icon/pencil.png</file>
+        <file>assets/icon/platte.png</file>
+        <file>assets/icon/rotateLeft.png</file>
+        <file>assets/icon/rotateRight.png</file>
+        <file>assets/icon/save.png</file>
+        <file>assets/icon/website.png</file>
+        <file>assets/icon/zoomIn.png</file>
+        <file>assets/icon/zoomOut.png</file>
+        <file>view/WAdapatBinarize.qml</file>
+    </qresource>
+</RCC>
