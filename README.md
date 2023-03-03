@@ -2,7 +2,7 @@
     数字媒体处理平台
 </h1>
 
-## 快速开始
+## 🚀 快速开始
 
 ### 环境
 
@@ -21,7 +21,7 @@ git clone https://github.com/Pear107/QPhotoEdit.git
 
 通过 Qt Creator 构建
 
-## 目录树
+## 🌲 目录树
 
 ```text
 .
