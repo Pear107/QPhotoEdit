@@ -107,7 +107,7 @@ git clone https://github.com/Pear107/QPhotoEdit.git
 
 ### OpenCV
 
-```
+```bash
 wget https://github.com/opencv/opencv/archive/refs/tags/4.5.5.zip
 unzip 4.5.5.zip -d 4.5.5
 wget https://www.raoyunsoft.com/opencv/opencv_contrib/opencv_contrib-4.5.5.zip
@@ -130,5 +130,14 @@ cmake --build . --config Release -j 2
 cmake --build . --config Release --target install
 ```
 
+## 预览
 
+![image-20230303140215126](img\image-20230303140215126.png)
 
+![image-20230303140404906](img\image-20230303140404906.png)
+
+![image-20230303140521749](img\image-20230303140521749.png)
+
+![image-20230303140604824](img\image-20230303140604824.png)
+
+![image-20230303140737899](img\image-20230303140737899.png)
