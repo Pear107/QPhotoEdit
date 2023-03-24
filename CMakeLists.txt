@@ -16,15 +16,6 @@ file(GLOB APP_FILES "src/app/*")
 file(GLOB PAINT_FILES "src/paint/*")
 file(GLOB UTILS_FILES "src/utils/*")
 
-set(NCNN_INCLUDE_DIRS "F:/ncnn/ncnn-msvc/include")
-
-if(CMAKE_BUILD_TYPE MATCHES "Release")
-    set(NCNN_LIBS "F:/ncnn/ncnn-msvc/lib/ncnn.lib")
-else ()
-    set(NCNN_LIBS "F:/ncnn/ncnn-msvc/lib/ncnnd.lib")
-endif()
-
-include_directories(${NCNN_INCLUDE_DIRS})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_executable(
