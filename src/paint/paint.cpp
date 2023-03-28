@@ -1,16 +1,16 @@
 #include <QMetaObject>
 
 #include "paint.h"
-#include "..\utils\convert_color.h"
-#include "..\utils\rotate_img.h"
-#include "..\utils\flip_img.h"
-#include "..\utils\blur_img.h"
-#include "..\utils\sharpen_img.h"
-#include "..\utils\binarize.h"
-#include "..\utils\transfer_grayscale.h"
-#include "..\utils\equalize_histogram.h"
-#include "..\utils\filter.h"
-#include "..\utils\effect.h"
+#include "..\algorithm\convert_color.h"
+#include "..\algorithm\rotate_img.h"
+#include "..\algorithm\flip_img.h"
+#include "..\algorithm\blur_img.h"
+#include "..\algorithm\sharpen_img.h"
+#include "..\algorithm\binarize.h"
+#include "..\algorithm\transfer_grayscale.h"
+#include "..\algorithm\equalize_histogram.h"
+#include "..\algorithm\filter.h"
+#include "..\algorithm\effect.h"
 
 QImage mat2qimage(cv::Mat& mat, Paint* paint){
     qint32 c = mat.channels();
@@ -45,6 +45,7 @@ QImage mat2qimage(cv::Mat& mat, Paint* paint){
                 {128, 0, 128}
             }
         };
+
         cv::Mat mat = cv::Mat(3, 3, CV_8SC3, arr);
         QImage img(mat.data, 3, 3, mat.step, QImage::Format_RGB888);
         paint->_w = 3, paint->_h = 3;
@@ -154,9 +155,9 @@ void Paint::setColorModel(quint32 colorModel){
     }
 
     if(_colorModel == RGB_MODEL){
-        _mat = utils::rgb2gray(_mat);
+        _mat = algorithm::rgb2gray(_mat);
     }else{
-        _mat = utils::gray2rgb(_mat);
+        _mat = algorithm::gray2rgb(_mat);
     }
 
     _colorModel = colorModel;
@@ -259,7 +260,7 @@ void Paint::open(const QString& src, qint32 sw, qint32 sh){
         _w = w, _h = h;
         this->setSize(QSize(_w, _h));
         this->setImplicitSize(_w, _h);
-//        this->setPosition(QPoint(qint32((sw - _w)/2.0), qint32((sh - _h)/2.0)));
+        //        this->setPosition(QPoint(qint32((sw - _w)/2.0), qint32((sh - _h)/2.0)));
         qDebug("w <= _w && h <= _h");
         qDebug("w = %d h = %d", _w, _h);
         qDebug("x = %d y = %d", qint32((sw - _w)/2.0), qint32((sh - _h)/2.0));
@@ -267,7 +268,7 @@ void Paint::open(const QString& src, qint32 sw, qint32 sh){
         _h = sh, _w = qint32(_h/(float)h*w);
         this->setSize(QSize(_w, _h));
         this->setImplicitSize(_w, _h);
-//        this->setPosition(QPoint(qint32((sw - _w)/2.0), 0));
+        //        this->setPosition(QPoint(qint32((sw - _w)/2.0), 0));
         qDebug("_w/float(_h) >= w/float(h)");
         qDebug("w = %d h = %d", _w, _h);
         qDebug("x = %d y = %d", qint32((sw - _w)/2.0), 0);
@@ -275,7 +276,7 @@ void Paint::open(const QString& src, qint32 sw, qint32 sh){
         _w = sw, _h = qint32(_w/(float)w*h);
         this->setSize(QSize(_w, _h));
         this->setImplicitSize(_w, _h);
-//        this->setPosition(QPoint(0, qint32((sh - _h)/2.0)));
+        //        this->setPosition(QPoint(0, qint32((sh - _h)/2.0)));
         qDebug("_w/float(_h) < w/float(h)");
         qDebug("w = %d h = %d", _w, qint32(_w/(float)w*h));
         qDebug("x = %d y = %d", 0, qint32((sh - _h)/2.0));
@@ -306,10 +307,13 @@ void Paint::saveAs(const QString& matPath){
 void Paint::rotateImg(qint32 direction, qint32 sw, qint32 sh){
     qDebug("--------------------------");
     qDebug("ROTATE IMG START");
+    std::clock_t start= std::clock();
+    //程序结束用时
+
     if(direction == LEFT){
-        _mat = utils::rotateLeft(_mat);
+        _mat = algorithm::rotateLeft(_mat);
     }else{
-        _mat = utils::rotateRight(_mat);
+        _mat = algorithm::rotateRight(_mat);
     }
 
     _w = _w + _h;
@@ -317,13 +321,16 @@ void Paint::rotateImg(qint32 direction, qint32 sw, qint32 sh){
     _w = _w - _h;
     this->setSize(QSize(_w, _h));
     this->setImplicitSize(_w, _h);
-//    qint32 x = qint32((sw - _w)/2.0);
-//    qint32 y = qint32((sh - _h)/2.0);
-//    x = x > 0 ? x : 0;
-//    y = y > 0 ? y : 0;
-//    this->setPosition(QPoint(x, y));
+    //    qint32 x = qint32((sw - _w)/2.0);
+    //    qint32 y = qint32((sh - _h)/2.0);
+    //    x = x > 0 ? x : 0;
+    //    y = y > 0 ? y : 0;
+    //    this->setPosition(QPoint(x, y));
     _img = mat2qimage(_mat, this);
     update();
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
     qDebug("--------------------------");
     qDebug("ROTATE IMG END");
 }
@@ -331,14 +338,18 @@ void Paint::rotateImg(qint32 direction, qint32 sw, qint32 sh){
 void Paint::flipImg(qint32 axis){
     qDebug("--------------------------");
     qDebug("FLIP IMG START");
+    std::clock_t start=clock();
     if(axis == HORIZONTALLY){
-        _mat = utils::flipHorizontally(_mat);
+        _mat = algorithm::flipHorizontally(_mat);
     }else{
-        _mat = utils::flipVertically(_mat);
+        _mat = algorithm::flipVertically(_mat);
     }
 
     _img = mat2qimage(_mat, this);
     update();
+    std::clock_t end = clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
     qDebug("--------------------------");
     qDebug("FLIP IMG END");
 }
@@ -346,6 +357,7 @@ void Paint::flipImg(qint32 axis){
 void Paint::zoomImg(qint32 percentage){
     qDebug("--------------------------");
     qDebug("ZOOM IMG START");
+    std::clock_t start=std::clock();
     qint32 w = this->_w * (percentage / 100.0);
     qint32 h = this->_h * (percentage / 100.0);
     qDebug("percentage = %d", percentage);
@@ -355,21 +367,33 @@ void Paint::zoomImg(qint32 percentage){
     this->setSize(QSize(w, h));
     this->setImplicitSize(w, h);
     update();
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
     qDebug("ZOOM IMG END");
     qDebug("--------------------------");
 }
 
 void Paint::equalizeHistogram(){
-    _mat = utils::equlizeHistogram(_mat);
+    qDebug("--------------------------");
+    qDebug("EQUALIZE HISTOGRAM IMG START");
+    std::clock_t start = std::clock();
+    _mat = algorithm::equlizeHistogram(_mat);
     _img = mat2qimage(_mat, this);
     update();
     generateHistogram();
     emit sendHistogram(_histogram);
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
+    qDebug("EQUALIZE HISTOGRAM IMG END");
+    qDebug("--------------------------");
 }
 
 void Paint::blurImg(qint32 blurType){
     qDebug("--------------------------");
     qDebug("BLUR IMG START");
+    std::clock_t start = std::clock();
     _blurType = blurType;
     if(blurType == GAUSSIN_FILTER){
         QObject* root = this->parent()->parent()->parent()->parent()->parent();
@@ -395,33 +419,45 @@ void Paint::blurImg(qint32 blurType){
         receiveRadius(1);
     }
 
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
     qDebug("BLUR IMG END");
     qDebug("--------------------------");
 }
 
 void Paint::sharpenImg(qint32 sharpenType){
+    qDebug("--------------------------");
+    qDebug("SHARP IMG START");
+    std::clock_t start = std::clock();
     if(sharpenType == GRADS_OPERATOR){
-        _mat = utils::gradsOperator(_mat);
+        _mat = algorithm::gradsOperator(_mat);
     }else if(sharpenType == LAPLACE_OPERATOR){
-        _mat = utils::laplaceOperator(_mat);
+        _mat = algorithm::laplaceOperator(_mat);
     }else if(sharpenType == ROBERTS_OPERATOR){
-        _mat = utils::robertsOperator(_mat);
+        _mat = algorithm::robertsOperator(_mat);
     }else if(sharpenType == SOBEL_OPERATOR){
-        _mat = utils::sobelOperator(_mat);
+        _mat = algorithm::sobelOperator(_mat);
     }
 
     _img = mat2qimage(_mat, this);
     update();
     generateHistogram();
     emit sendHistogram(_histogram);
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
+    qDebug("SHARP IMG END");
+    qDebug("--------------------------");
 }
 
 void Paint::binarizeImg(qint32 binarizeType){
     qDebug("--------------------------");
     qDebug("BINARIZATION IMG START");
+    std::clock_t start = std::clock();
     if(binarizeType == OSTU_THRESH){
-        _mat = utils::rgb2gray(_mat);
-        _mat = utils::ostuThresh(_mat);
+        _mat = algorithm::rgb2gray(_mat);
+        _mat = algorithm::ostuThresh(_mat);
         _img = mat2qimage(_mat, this);
         _colorModel = GRAY_MODEL;
         update();
@@ -452,6 +488,9 @@ void Paint::binarizeImg(qint32 binarizeType){
         receiveParameter(1, 0);
     }
 
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
     qDebug("BINARIZATION IMG END");
     qDebug("--------------------------");
 }
@@ -459,6 +498,7 @@ void Paint::binarizeImg(qint32 binarizeType){
 void Paint::transferGrayscale(){
     qDebug("--------------------------");
     qDebug("TRANSFER IMG START");
+    std::clock_t start = std::clock();
     QObject* root = this->parent()->parent()->parent()->parent()->parent();
     QObject* wTransfer = root->findChild<QObject*>("wTransfer");
     QObject* paint = wTransfer->findChild<QObject*>("cMiniPaint");
@@ -469,52 +509,71 @@ void Paint::transferGrayscale(){
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
     connect(wTransfer, SIGNAL(sendParameter(double, qint32)), this, SLOT(receiveParameter(double, qint32)));
     receiveParameter(-1.0, 255);
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
     qDebug("TRANSFER IMG END");
     qDebug("--------------------------");
 }
 
 void Paint::filter(qint32 filterType){
+    qDebug("--------------------------");
+    qDebug("FILTER IMG START");
+    std::clock_t start = std::clock();
     if(filterType == INVERT_FILTER){
-        _mat = utils::invertFilter(_mat);
+        _mat = algorithm::invertFilter(_mat);
     }else if(filterType == DECOLORI_FILTER){
-        _mat = utils::decolorFilter(_mat);
+        _mat = algorithm::decolorFilter(_mat);
     }else if(filterType == NOSTALGIZ_FILTER){
-        _mat = utils::nostalgiaFilter(_mat);
+        _mat = algorithm::nostalgiaFilter(_mat);
     }else if(filterType == CAST_FILTER){
-        _mat = utils::castFilter(_mat);
+        _mat = algorithm::castFilter(_mat);
     }else if(filterType == FREEZE_FILTER){
-        _mat = utils::freezeFilter(_mat);
+        _mat = algorithm::freezeFilter(_mat);
     }else if(filterType == COMIC_STRIP_FILTER){
-        _mat = utils::comicStripFilter(_mat);
+        _mat = algorithm::comicStripFilter(_mat);
     }else if(filterType == EXPOSURE_FILTER){
-        _mat = utils::exposureFilter(_mat);
+        _mat = algorithm::exposureFilter(_mat);
     }
 
     _img = mat2qimage(_mat, this);
     update();
     generateHistogram();
     emit sendHistogram(_histogram);
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";;
+    qDebug("FILTER IMG END");
+    qDebug("--------------------------");
 }
 
 void Paint::effect(qint32 effectType){
+    qDebug("--------------------------");
+    qDebug("EFFECT IMG START");
+    std::clock_t start = std::clock();
     if(effectType == FROSTED_GLASS_EFFECT){
-        _mat = utils::frostedGlassEffect(_mat);
+        _mat = algorithm::frostedGlassEffect(_mat);
     }else if(effectType == RELIEF_EFFECT){
-        _mat = utils::reliefEffect(_mat);
+        _mat = algorithm::reliefEffect(_mat);
     }else if(effectType == OIL_PAINTING_EFFECT){
-        _mat = utils::oilPaintingEffect(_mat);
+        _mat = algorithm::oilPaintingEffect(_mat);
     }else if(effectType == MOSAIC_EFFECT){
-        _mat = utils::mosaicEffect(_mat);
+        _mat = algorithm::mosaicEffect(_mat);
     }else if(effectType == SKETCH_EFFECT){
-        _mat = utils::sketchEffect(_mat);
+        _mat = algorithm::sketchEffect(_mat);
     }else if(effectType == FLEETING_TIME_EFFECT){
-        _mat = utils::fleetingTimeEffect(_mat);
+        _mat = algorithm::fleetingTimeEffect(_mat);
     }
 
     _img = mat2qimage(_mat, this);
     update();
     generateHistogram();
     emit sendHistogram(_histogram);
+    std::clock_t end = std::clock();
+    double endtime=(double)(end-start)/CLOCKS_PER_SEC;
+    qDebug()<<"Total time:"<<endtime*1000<<"ms";
+    qDebug("EFFECT IMG END");
+    qDebug("--------------------------");
 }
 
 void Paint::select(){
@@ -538,13 +597,13 @@ void Paint::cancel(){
 
 void Paint::receiveRadius(qint32 radius){
     if(_blurType == LINEAR_MEAN_FILTER){
-        _tmpMat = utils::linearMeanFilter(_mat, radius);
+        _tmpMat = algorithm::linearMeanFilter(_mat, radius);
     }else if(_blurType == MAXIUM_FILTER){
-        _tmpMat = utils::maximumFilter(_mat, radius);
+        _tmpMat = algorithm::maximumFilter(_mat, radius);
     }else if(_blurType == MEDIAN_FILTER){
-        _tmpMat = utils::medianFilter(_mat, radius);
+        _tmpMat = algorithm::medianFilter(_mat, radius);
     }else if(_blurType == MINIMUM_FILTER){
-        _tmpMat = utils::minimumFilter(_mat, radius);
+        _tmpMat = algorithm::minimumFilter(_mat, radius);
     }
 
     QImage img = mat2qimage(_tmpMat , this);
@@ -552,36 +611,36 @@ void Paint::receiveRadius(qint32 radius){
 }
 
 void Paint::receiveParameter(qint32 radius, double sigma){
-    _tmpMat = utils::gaussianFilter(_mat, radius, sigma);
+    _tmpMat = algorithm::gaussianFilter(_mat, radius, sigma);
     QImage img = mat2qimage(_tmpMat, this);
     emit sendImg(img);
 }
 
 void Paint::receiveThresh(qint32 thresh){
     if(_colorModel == RGB_MODEL){
-        _tmpMat = utils::rgb2gray(_mat);
+        _tmpMat = algorithm::rgb2gray(_mat);
     }
 
     qDebug("_tmpMat.channels() = %d", _tmpMat.channels());
     qDebug("w = %d, h = %d", _tmpMat.cols, _tmpMat.rows);
-    cv::Mat tmpImg = utils::fixedThresh( _tmpMat, thresh);
+    cv::Mat tmpImg = algorithm::fixedThresh( _tmpMat, thresh);
     qDebug("w = %d, h = %d", tmpImg.cols, tmpImg.rows);
     QImage img = mat2qimage(_tmpMat, this);
     emit sendImg(img);
 }
 
 void Paint::receiveParameter(double a, qint32 b){
-     _tmpMat = utils::linearGrayTransfer(_mat, a, b);
-     QImage img = mat2qimage(_tmpMat, this);
-     emit sendImg(img);
+    _tmpMat = algorithm::linearGrayTransfer(_mat, a, b);
+    QImage img = mat2qimage(_tmpMat, this);
+    emit sendImg(img);
 }
 
 void Paint::receiveParameter(qint32 radius, qint32 c){
     if(_colorModel == RGB_MODEL){
-        _tmpMat = utils::rgb2gray(_mat);
+        _tmpMat = algorithm::rgb2gray(_mat);
     }
 
-    cv::Mat tmpMat = utils::adaptiveThresh(_tmpMat, radius, c);
+    cv::Mat tmpMat = algorithm::adaptiveThresh(_tmpMat, radius, c);
     QImage img = mat2qimage(tmpMat, this);
     emit sendImg(img);
 }

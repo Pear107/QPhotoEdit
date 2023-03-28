@@ -7,7 +7,7 @@
 #define LEFT 0
 #define RIGHT 1
 
-namespace utils{
+namespace algorithm{
 cv::Mat rotateLeft(cv::Mat&);
 cv::Mat rotateRight(cv::Mat&);
 }

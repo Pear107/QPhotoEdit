@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <opencv2/opencv.hpp>
 
-namespace utils {
+namespace algorithm{
 cv::Mat rgb2hsi(cv::Mat&);
 cv::Mat rgb2cmyk(cv::Mat&);
 cv::Mat rgb2gray(cv::Mat&);

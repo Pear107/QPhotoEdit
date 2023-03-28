@@ -1,6 +1,6 @@
 #include "flip_img.h"
 
-cv::Mat utils::flipHorizontally(cv::Mat& src){
+cv::Mat algorithm::flipHorizontally(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("FLIP HORIZONTALLY START");
     qint32 w = src.cols, h = src.rows;
@@ -39,7 +39,7 @@ cv::Mat utils::flipHorizontally(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::flipVertically(cv::Mat& src){
+cv::Mat algorithm::flipVertically(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("FLIP VERTICALLY START");
     qint32 w = src.cols, h = src.rows;

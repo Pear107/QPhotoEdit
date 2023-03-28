@@ -1,6 +1,6 @@
 #include "binarize.h"
 
-cv::Mat utils::fixedThresh(cv::Mat& src, qint32 thresh){
+cv::Mat algorithm::fixedThresh(cv::Mat& src, qint32 thresh){
     qDebug("--------------------------");
     qDebug("FIXED THRESH START");
     qint32 w = src.cols, h = src.rows;
@@ -22,7 +22,7 @@ cv::Mat utils::fixedThresh(cv::Mat& src, qint32 thresh){
     return dst;
 }
 
-cv::Mat utils::ostuThresh(cv::Mat& src){
+cv::Mat algorithm::ostuThresh(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     double size = static_cast<double>(w * h);
     cv::Mat dst(h, w, CV_8UC1, cv::Scalar::all(0));
@@ -80,7 +80,7 @@ cv::Mat utils::ostuThresh(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::adaptiveThresh(cv::Mat& src, qint32 radius, qint32 c){
+cv::Mat algorithm::adaptiveThresh(cv::Mat& src, qint32 radius, qint32 c){
     qint32 w = src.cols, h = src.rows;
     double size = w * h;
     cv::Mat dst(h, w, CV_8UC1, cv::Scalar::all(0));

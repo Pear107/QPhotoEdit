@@ -1,6 +1,6 @@
 #include "transfer_grayscale.h"
 
-cv::Mat utils::linearGrayTransfer(cv::Mat& src, double a, qint32 b){
+cv::Mat algorithm::linearGrayTransfer(cv::Mat& src, double a, qint32 b){
     qint32 w = src.cols, h= src.rows, c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
     if(c == 1){

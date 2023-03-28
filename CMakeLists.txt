@@ -14,6 +14,7 @@ find_package(OpenCV 4 REQUIRED)
 
 file(GLOB APP_FILES "src/app/*")
 file(GLOB PAINT_FILES "src/paint/*")
+file(GLOB ALGORITHM_FILES "src/algorithm/*")
 file(GLOB UTILS_FILES "src/utils/*")
 
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -25,6 +26,7 @@ add_executable(
     src/qtquickcontrols2.conf
     ${APP_FILES}
     ${PAINT_FILES}
+    ${ALGORITHM_FILES}
     ${UTILS_FILES}
 )
 

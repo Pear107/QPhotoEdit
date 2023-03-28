@@ -7,7 +7,7 @@
 #define HORIZONTALLY 0
 #define VERTICALLY 1
 
-namespace utils{
+namespace algorithm{
 cv::Mat flipHorizontally(cv::Mat&);
 cv::Mat flipVertically(cv::Mat&);
 }

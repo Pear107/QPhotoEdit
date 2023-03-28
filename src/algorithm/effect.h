@@ -11,7 +11,7 @@
 #define SKETCH_EFFECT 4
 #define FLEETING_TIME_EFFECT 5
 
-namespace utils{
+namespace algorithm{
 cv::Mat frostedGlassEffect(cv::Mat&);
 cv::Mat reliefEffect(cv::Mat&);
 cv::Mat oilPaintingEffect(cv::Mat&);

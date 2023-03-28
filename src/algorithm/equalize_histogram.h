@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <opencv2/opencv.hpp>
 
-namespace utils{
+namespace algorithm{
     cv::Mat equlizeHistogram(cv::Mat&);
 }
 

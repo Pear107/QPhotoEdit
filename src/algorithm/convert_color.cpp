@@ -1,10 +1,10 @@
 #include "convert_color.h"
 
-cv::Mat utils::rgb2hsi(cv::Mat& src){
+cv::Mat algorithm::rgb2hsi(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::rgb2cmyk(cv::Mat& src){
+cv::Mat algorithm::rgb2cmyk(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("RGB CONVERT CMYK START");
     qint32 w = src.cols, h = src.rows;
@@ -33,7 +33,7 @@ cv::Mat utils::rgb2cmyk(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::rgb2gray(cv::Mat& src){
+cv::Mat algorithm::rgb2gray(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("RGB CONVERT GRAY START");
     qint32 w = src.cols, h = src.rows;
@@ -62,19 +62,19 @@ cv::Mat utils::rgb2gray(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::hsi2rgb(cv::Mat& src){
+cv::Mat algorithm::hsi2rgb(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::hsi2cmyk(cv::Mat& src){
+cv::Mat algorithm::hsi2cmyk(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::hsi2gray(cv::Mat& src){
+cv::Mat algorithm::hsi2gray(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::cmyk2Rgb(cv::Mat& src){
+cv::Mat algorithm::cmyk2Rgb(cv::Mat& src){
     qDebug("CMYK CONVERT RGB START");
     qDebug("--------------------------");
     qint32 w = src.cols, h = src.rows;
@@ -100,15 +100,15 @@ cv::Mat utils::cmyk2Rgb(cv::Mat& src){
     qDebug("CMYK CONVERT RGB END");
     return dst;
 }
-cv::Mat utils::cmyk2Hsi(cv::Mat& src){
+cv::Mat algorithm::cmyk2Hsi(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::cmyk2Gray(cv::Mat& src){
+cv::Mat algorithm::cmyk2Gray(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::gray2rgb(cv::Mat& src){
+cv::Mat algorithm::gray2rgb(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("GRAY CONVERT RGB START");
     qint32 w = src.cols, h = src.rows;
@@ -128,10 +128,10 @@ cv::Mat utils::gray2rgb(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::gray2hsi(cv::Mat& src){
+cv::Mat algorithm::gray2hsi(cv::Mat& src){
     return src;
 }
 
-cv::Mat utils::gray2cmyk(cv::Mat& src){
+cv::Mat algorithm::gray2cmyk(cv::Mat& src){
     return src;
 }

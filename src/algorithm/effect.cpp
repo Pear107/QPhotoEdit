@@ -1,6 +1,6 @@
 #include "effect.h"
 
-cv::Mat utils::frostedGlassEffect(cv::Mat& src){
+cv::Mat algorithm::frostedGlassEffect(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     qint32 c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
@@ -46,7 +46,7 @@ cv::Mat utils::frostedGlassEffect(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::reliefEffect(cv::Mat& src){
+cv::Mat algorithm::reliefEffect(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     qint32 c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
@@ -85,7 +85,7 @@ cv::Mat utils::reliefEffect(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::oilPaintingEffect(cv::Mat& src){
+cv::Mat algorithm::oilPaintingEffect(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     qint32 c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
@@ -93,7 +93,7 @@ cv::Mat utils::oilPaintingEffect(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::mosaicEffect(cv::Mat& src){
+cv::Mat algorithm::mosaicEffect(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     qint32 c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
@@ -208,7 +208,7 @@ cv::Mat utils::mosaicEffect(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::sketchEffect(cv::Mat& src){
+cv::Mat algorithm::sketchEffect(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     qint32 c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
@@ -221,7 +221,7 @@ cv::Mat utils::sketchEffect(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::fleetingTimeEffect(cv::Mat& src){
+cv::Mat algorithm::fleetingTimeEffect(cv::Mat& src){
     qint32 w = src.cols, h = src.rows;
     qint32 c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));

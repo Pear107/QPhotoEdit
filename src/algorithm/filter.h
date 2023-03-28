@@ -12,7 +12,7 @@
 #define COMIC_STRIP_FILTER 5
 #define EXPOSURE_FILTER 6
 
-namespace utils{
+namespace algorithm{
 cv::Mat invertFilter(cv::Mat&);
 cv::Mat decolorFilter(cv::Mat&);
 cv::Mat nostalgiaFilter(cv::Mat&);

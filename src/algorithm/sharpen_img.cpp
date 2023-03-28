@@ -1,6 +1,6 @@
 #include "sharpen_img.h"
 
-cv::Mat utils::gradsOperator(cv::Mat& src){
+cv::Mat algorithm::gradsOperator(cv::Mat& src){
     qint32 w = src.cols, h= src.rows, c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
     if(c == 1){
@@ -61,7 +61,7 @@ cv::Mat utils::gradsOperator(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::laplaceOperator(cv::Mat& src){
+cv::Mat algorithm::laplaceOperator(cv::Mat& src){
     qint32 w = src.cols, h= src.rows, c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
     if(c == 1){
@@ -103,7 +103,7 @@ cv::Mat utils::laplaceOperator(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::robertsOperator(cv::Mat& src){
+cv::Mat algorithm::robertsOperator(cv::Mat& src){
     qint32 w = src.cols, h= src.rows, c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
     if(c == 1){
@@ -164,7 +164,7 @@ cv::Mat utils::robertsOperator(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::sobelOperator(cv::Mat& src){
+cv::Mat algorithm::sobelOperator(cv::Mat& src){
     qint32 w = src.cols, h= src.rows, c = src.channels();
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
     if(c == 1){

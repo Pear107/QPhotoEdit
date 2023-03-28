@@ -11,7 +11,7 @@
 #define MEDIAN_FILTER 3
 #define MINIMUM_FILTER 4
 
-namespace utils{
+namespace algorithm{
 cv::Mat gaussianFilter(cv::Mat&, qint32, double);
 cv::Mat linearMeanFilter(cv::Mat&, qint32);
 cv::Mat maximumFilter(cv::Mat&, qint32);

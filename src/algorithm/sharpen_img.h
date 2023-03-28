@@ -9,7 +9,7 @@
 #define ROBERTS_OPERATOR 2
 #define SOBEL_OPERATOR 3
 
-namespace utils{
+namespace algorithm{
 cv::Mat gradsOperator(cv::Mat&);
 cv::Mat laplaceOperator(cv::Mat&);
 cv::Mat robertsOperator(cv::Mat&);

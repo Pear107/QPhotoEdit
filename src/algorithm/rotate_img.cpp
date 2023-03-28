@@ -1,6 +1,6 @@
 #include "rotate_img.h"
 
-cv::Mat utils::rotateLeft(cv::Mat& src){
+cv::Mat algorithm::rotateLeft(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("ROTATE LEFT START");
     qint32 w = src.cols, h= src.rows, c = src.channels();
@@ -39,7 +39,7 @@ cv::Mat utils::rotateLeft(cv::Mat& src){
     return dst;
 }
 
-cv::Mat utils::rotateRight(cv::Mat& src){
+cv::Mat algorithm::rotateRight(cv::Mat& src){
     qDebug("--------------------------");
     qDebug("ROTATE RIGHT START");
     qint32 w = src.cols, h= src.rows, c = src.channels();

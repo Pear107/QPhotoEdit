@@ -1,6 +1,6 @@
 #include "equalize_histogram.h"
 
-cv::Mat utils::equlizeHistogram(cv::Mat& src){
+cv::Mat algorithm::equlizeHistogram(cv::Mat& src){
     qint32 h = src.rows, w = src.cols, c = src.channels();
     double size = static_cast<double>(h * w);
     cv::Mat dst(h, w, CV_8UC(c), cv::Scalar::all(0));
